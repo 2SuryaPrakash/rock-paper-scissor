@@ -14,15 +14,28 @@ function getComputerChoice()
         return 'scissor';
     }
 }
-function getHumanChoice()
-{
-    let x=prompt('Enter Choice (Rock/Paper/Scissor):').toLowerCase();
-    return x;
-}
+
 let humanScore=0,computerScore=0;
-function playRound()
+document.querySelectorAll('img').forEach(x=>{
+    x.addEventListener('click',(e)=>{
+        playRound(e.target.className);
+    });
+});
+function sethscore(score)
 {
-    let human=getHumanChoice();
+    let f=document.querySelector('.you');
+    f.textContent='Your Score : '+score;
+
+}
+function setcscore(score) {
+    let f=document.querySelector('.computer');
+    f.textContent='Computer Score : '+score;
+}
+function playRound(human)
+{
+    
+    
+    
     let computer=getComputerChoice();
     if(!(['rock','paper','scissor'].includes(human)) )
     {
@@ -39,11 +52,13 @@ function playRound()
         {
             console.log('You Lost! Paper beats Rock!');
             computerScore++;
+            
         }
         else if(computer=='scissor')
         {
                 console.log('You Won! Rock beats Scissor!');
                 humanScore++;
+                
         }
     }
     else if(human=='paper')
@@ -70,11 +85,25 @@ function playRound()
                 humanScore++;
             }
     }
-    
+    setcscore(computerScore);
+    sethscore(humanScore);
+    if(computerScore>=5||humanScore>=5) {
+        if(computerScore==humanScore) {
+            alert('It is a draw!!');
+        }
+        else{
+            let result=(humanScore>computerScore)?'human':'computer';
+            alert('The Winner is '+result+' !!!');
+        }
+        computerScore=humanScore=0;
+        setcscore(0);
+        sethscore(0);
+    }
 }
-function playGame(rounds)
+function playGame()
     {
-        for(let i=0;i<rounds;i++)
+        console.log('hi');
+        while(computerScore<5&&humanScore<5)
         {
             playRound();
         } 
@@ -86,5 +115,7 @@ function playGame(rounds)
             let result=(humanScore>computerScore)?'human':'computer';
             alert('The Winner is '+result+' !!!');
         }
+       
     }  
-    playGame(parseInt(prompt('Enter number of rounds to play:')));
+    // playGame(parseInt(prompt('Enter number of rounds to play:')));
+
